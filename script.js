@@ -6,4 +6,4 @@ let rollback;
 let fullPrice;
 let adaptive;
 
-alert("Hello friend!");
+alert("Hello friend! How are you?");
