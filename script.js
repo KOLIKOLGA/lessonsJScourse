@@ -1,4 +1,3 @@
-console.log("Hello world!!!");
 let title;
 let screens;
 let screenPrice;
@@ -7,3 +6,4 @@ let fullPrice;
 let adaptive;
 
 alert("Hello friend! How are you?");
+console.log("Hello world!!!");
