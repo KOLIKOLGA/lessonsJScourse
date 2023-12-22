@@ -1,9 +1,16 @@
-let title = "Калькулятор верстки";
-let screens = "Простые, Сложные, Интерактивные";
-let screenPrice = 1000;
+let title = prompt("Как называется Ваш проект?", "Калькулятор верстки");
+let screens = prompt(
+  "Какие типы экранов нужно разработать?",
+  "Простые, Сложные, Интерактивные"
+);
+let screenPrice = prompt("Сколько будет стоить данная работа", "12000");
 let rollback = 25;
 let fullPrice = 10000;
-let adaptive = true;
+let adaptive = confirm("Нужен ли адаптив на сайте");
+let service1 = prompt("Какой дополнительный тип услуги нужен?", "Каталог");
+let servicePrice1 = promt("Сколько это будет стоить?", "1000");
+let service2 = prompt("Какой дополнительный тип услуги нужен?", "Каталог");
+let servicePrice2 = promt("Сколько это будет стоить?", "1000");
 
 console.log("Hello world!!!");
 
