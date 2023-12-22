@@ -8,9 +8,9 @@ let rollback = 25;
 let fullPrice = 10000;
 let adaptive = confirm("Нужен ли адаптив на сайте");
 let service1 = prompt("Какой дополнительный тип услуги нужен?", "Каталог");
-let servicePrice1 = promt("Сколько это будет стоить?", "1000");
+let servicePrice1 = prompt("Сколько это будет стоить?", "1000");
 let service2 = prompt("Какой дополнительный тип услуги нужен?", "Каталог");
-let servicePrice2 = promt("Сколько это будет стоить?", "1000");
+let servicePrice2 = prompt("Сколько это будет стоить?", "1000");
 
 console.log("Hello world!!!");
 
