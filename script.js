@@ -55,13 +55,8 @@ showTypeOf(title);
 showTypeOf(screenPrice);
 showTypeOf(adaptive);
 
-// console.log(typeof title);
-// console.log(typeof fullPrice);
-// console.log(typeof adaptive);
-
 console.log(screens.length);
-
-console.log("Стоимость верстки экранов " + +screenPrice + " руб");
+console.log("Стоимость верстки экранов " + screenPrice + " руб");
 console.log("Стоимость разработки сайта " + getFullPrice() + " руб");
 console.log(screens.toLowerCase());
 console.log(screens.split(", "));
