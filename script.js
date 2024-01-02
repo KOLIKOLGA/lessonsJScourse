@@ -4,12 +4,12 @@ let screens = prompt(
   "Простые, Сложные, Интерактивные"
 );
 let screenPrice = +prompt("Сколько будет стоить данная работа", "20000");
-let rollback = 10;
 let adaptive = confirm("Нужен ли адаптив на сайте");
 let service1 = prompt("Какой дополнительный тип услуги нужен?", "Каталог");
 let servicePrice1 = +prompt("Сколько это будет стоить?", "11000");
 let service2 = prompt("Какой дополнительный тип услуги нужен?", "Каталог");
 let servicePrice2 = +prompt("Сколько это будет стоить?", "11000");
+let rollback = 10;
 let fullPrice;
 let servicePercentPrice;
 let allServicePrices;
@@ -18,25 +18,20 @@ const showTypeOf = function (variable) {
   console.log(variable, typeof variable);
 };
 
-const getAllServicePrices = function (ser1, ser2) {
-  allServicePrices = ser1 + ser2;
-  return allServicePrices;
+const getAllServicePrices = function () {
+  return servicePrice1 + servicePrice2;
 };
 
 function getFullPrice() {
-  fullPrice = screenPrice + getAllServicePrices(servicePrice1, servicePrice2);
-  return fullPrice;
+  return screenPrice + allServicePrices;
 }
 
 const getServicePercentPrices = function () {
-  servicePercentPrice = Math.ceil(fullPrice - fullPrice * (rollback / 100));
-  return servicePercentPrice;
+  return Math.ceil(fullPrice - fullPrice * (rollback / 100));
 };
 
 const getTitle = function () {
-  title = title.trim().toLowerCase();
-  title = title[0].toUpperCase() + title.slice(1);
-  return title;
+  return title.trim()[0].toUpperCase() + title.trim().substr(1).toLowerCase();
 };
 
 const getRollbackMessage = function (price) {
@@ -51,18 +46,23 @@ const getRollbackMessage = function (price) {
   }
 };
 
+allServicePrices = getAllServicePrices();
+fullPrice = getFullPrice();
+servicePercentPrice = getServicePercentPrices();
+title = getTitle();
+
 showTypeOf(title);
 showTypeOf(screenPrice);
 showTypeOf(adaptive);
 
+console.log(typeof title);
+console.log(typeof screenPrice);
+console.log(typeof adaptive);
 console.log(screens.length);
 console.log("Стоимость верстки экранов " + screenPrice + " руб");
 console.log("Стоимость разработки сайта " + getFullPrice() + " руб");
 console.log(screens.toLowerCase());
 console.log(screens.split(", "));
 console.log(fullPrice + " руб");
-console.log(getServicePercentPrices() + " руб");
-console.log(getAllServicePrices(servicePrice1, servicePrice2));
-console.log(getFullPrice());
+console.log(servicePercentPrice + " руб");
 console.log(getRollbackMessage(fullPrice));
-console.log(getTitle());
