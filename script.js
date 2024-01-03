@@ -37,11 +37,13 @@ const getTitle = function () {
 const getRollbackMessage = function (price) {
   if (price >= 30000) {
     return "Даем скидку в 10%";
-  } else if (price >= 15000 && price < 30000) {
+  }
+  if (price >= 15000 && price < 30000) {
     return "Даем скидку в 5%";
-  } else if (price > 0 && price < 15000) {
+  }
+  if (price > 0 && price < 15000) {
     return "Скидка не предусмотрена";
-  } else if (price < 0) {
+  } else {
     return "Что то пошло не так";
   }
 };
