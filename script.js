@@ -56,8 +56,8 @@ const getAllServicePrices = function () {
         servicePrice2 = prompt("Сколько это будет стоить?");
       } while (
         !isNumber(servicePrice2) ||
-        servicePrice1.trim() === "" ||
-        servicePrice1 === null
+        servicePrice2.trim() === "" ||
+        servicePrice2 === null
       );
       sum += +servicePrice2;
     }
