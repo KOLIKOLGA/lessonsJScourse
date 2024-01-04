@@ -44,7 +44,6 @@ const getAllServicePrices = function () {
     do {
       price = +prompt("Сколько это будет стоить?");
     } while (!isNumber(price)); // || price.trim() === "" || price === null
-    console.log(typeof price);
     sum += price;
   }
   return sum;
