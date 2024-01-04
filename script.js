@@ -26,41 +26,26 @@ const asking = function () {
     "Простые, Сложные, Интерактивные"
   );
   do {
-    screenPrice = prompt("Сколько будет стоить данная работа");
-  } while (
-    !isNumber(screenPrice) ||
-    screenPrice.trim() === "" ||
-    screenPrice === null
-  );
+    screenPrice = +prompt("Сколько будет стоить данная работа");
+  } while (!isNumber(screenPrice)); //|| screenPrice.trim() === "" || screenPrice === null
   screenPrice = Number(screenPrice);
   adaptive = confirm("Нужен ли адаптив на сайте");
 };
 
 const getAllServicePrices = function () {
   let sum = 0;
-
+  let price = 0;
   for (let i = 0; i < 2; i++) {
     if (i === 0) {
       service1 = prompt("Какой дополнительный тип услуги нужен?");
-      do {
-        servicePrice1 = prompt("Сколько это будет стоить?");
-      } while (
-        !isNumber(servicePrice1) ||
-        servicePrice1.trim() === "" ||
-        servicePrice1 === null
-      );
-      sum += +servicePrice1;
     } else if (i === 1) {
       service2 = prompt("Какой дополнительный тип услуги нужен?");
-      do {
-        servicePrice2 = prompt("Сколько это будет стоить?");
-      } while (
-        !isNumber(servicePrice2) ||
-        servicePrice2.trim() === "" ||
-        servicePrice2 === null
-      );
-      sum += +servicePrice2;
     }
+    do {
+      price = +prompt("Сколько это будет стоить?");
+    } while (!isNumber(price)); // || price.trim() === "" || price === null
+    console.log(typeof price);
+    sum += price;
   }
   return sum;
 };
