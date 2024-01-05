@@ -26,8 +26,8 @@ const asking = function () {
     "Простые, Сложные, Интерактивные"
   );
   do {
-    screenPrice = +prompt("Сколько будет стоить данная работа");
-  } while (!isNumber(screenPrice)); //|| screenPrice.trim() === "" || screenPrice === null
+    screenPrice = prompt("Сколько будет стоить данная работа");
+  } while (!isNumber(screenPrice)); //||screenPrice === null  || screenPrice.trim() === ""
   screenPrice = Number(screenPrice);
   adaptive = confirm("Нужен ли адаптив на сайте");
 };
@@ -42,9 +42,9 @@ const getAllServicePrices = function () {
       service2 = prompt("Какой дополнительный тип услуги нужен?");
     }
     do {
-      price = +prompt("Сколько это будет стоить?");
-    } while (!isNumber(price)); // || price.trim() === "" || price === null
-    sum += price;
+      price = prompt("Сколько это будет стоить?");
+    } while (!isNumber(price)); // || price === null || price.trim() === ""
+    sum += +price;
   }
   return sum;
 };
