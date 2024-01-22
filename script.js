@@ -12,6 +12,15 @@ const appData = {
   allServicePrices: 0,
   rollback: 10,
 
+  start: function () {
+    appData.asking();
+    appData.allServicePrices = appData.getAllServicePrices();
+    appData.fullPrice = appData.getFullPrice();
+    appData.servicePercentPrice = appData.getServicePercentPrices();
+    appData.title = appData.getTitle();
+    appData.logger();
+  },
+
   asking: function () {
     appData.title = prompt("Как называется Ваш проект?", "Калькулятор верстки");
     appData.screens = prompt(
@@ -76,14 +85,6 @@ const appData = {
     for (const key in appData) {
       console.log("Ключ: " + key + " значение: " + appData[key]);
     }
-  },
-  start: function () {
-    appData.asking();
-    appData.allServicePrices = appData.getAllServicePrices();
-    appData.fullPrice = appData.getFullPrice();
-    appData.servicePercentPrice = appData.getServicePercentPrices();
-    appData.title = appData.getTitle();
-    appData.logger();
   },
 };
 
