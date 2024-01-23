@@ -37,12 +37,12 @@ const appData = {
       let price = 0;
       do {
         name = prompt("Какие типы экранов нужно разработать?");
-      } while (appData.isNumber(name));
+      } while (appData.isString(name));
 
       do {
         price = prompt("Сколько будет стоить данная работа");
       } while (!appData.isNumber(price));
-      price = Number(price);
+      price = Number(price.replaceAll(" ", ""));
 
       appData.screens.push({ id: i, name: name, price: price });
     }
@@ -58,6 +58,7 @@ const appData = {
       do {
         price = prompt("Сколько это будет стоить?");
       } while (!appData.isNumber(price));
+      price = Number(price.replaceAll(" ", ""));
 
       appData.services[name] = +price;
     }
