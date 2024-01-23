@@ -31,7 +31,7 @@ const appData = {
     do {
       appData.title = prompt("Как называется Ваш проект?");
     } while (appData.isString(appData.title));
-    console.log(typeof appData.title);
+
     for (let i = 0; i < 2; i++) {
       let name;
       let price = 0;
@@ -43,7 +43,7 @@ const appData = {
         price = prompt("Сколько будет стоить данная работа");
       } while (!appData.isNumber(price));
       price = Number(price);
-      console.log(typeof price);
+
       appData.screens.push({ id: i, name: name, price: price });
     }
 
