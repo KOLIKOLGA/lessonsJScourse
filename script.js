@@ -60,16 +60,21 @@ const appData = {
       } while (!appData.isNumber(price));
       price = Number(price.replaceAll(" ", ""));
 
-      appData.services[name] = +price;
+      appData.services[`${name}${i}`] = +price;
     }
     appData.adaptive = confirm("Нужен ли адаптив на сайте");
   },
 
   addPrice: function () {
-    for (let screen of appData.screens) {
-      appData.screenPrice += +screen.price;
-      appData.screenPrice = Number(appData.screenPrice);
-    }
+    // for (let screen of appData.screens) {
+    //   appData.screenPrice += +screen.price;
+    //   appData.screenPrice = Number(appData.screenPrice);
+    // }
+
+    appData.screenPrice = appData.screens.reduce(function (sum, item) {
+      return sum + item.price;
+    }, 0);
+
     for (let key in appData.services) {
       appData.allServicePrices += appData.services[key];
     }
@@ -108,6 +113,7 @@ const appData = {
     console.log(appData.fullPrice);
     console.log(appData.servicePercentPrice);
     console.log(appData.screens);
+    console.log(appData.services);
   },
 };
 
