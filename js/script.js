@@ -13,7 +13,9 @@ const spanRange = document.querySelector(
   ".rollback > .main-controls__range > span"
 );
 const totalInputs = document.getElementsByClassName("total-input");
-let screens = document.querySelectorAll(".screen");
+let screens = document.querySelectorAll(
+  ".screen > .main-controls__select > select > option"
+);
 
 const appData = {
   title: "",
