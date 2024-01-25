@@ -19,9 +19,7 @@ const totalInputCountOther = document.getElementsByClassName("total-input")[2];
 const totalInputFullCount = document.getElementsByClassName("total-input")[3];
 const totalInputTotalCountRollback =
   document.getElementsByClassName("total-input")[4];
-let screens = document.querySelectorAll(
-  ".screen > .main-controls__select > select > option"
-)[4];
+let screens = document.querySelectorAll(".screen");
 
 const appData = {
   title: "",
