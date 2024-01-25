@@ -1,6 +1,7 @@
 "use strict";
-const h1 = document.getElementsByTagName("h1");
-const handlerBtn = document.getElementsByClassName("handler_btn");
+const h1 = document.getElementsByTagName("h1")[0];
+const handlerBtnStart = document.getElementsByClassName("handler_btn")[0];
+const handlerBtnReset = document.getElementsByClassName("handler_btn")[1];
 const screenBtn = document.querySelector(".screen-btn");
 const otherItemsPercent = document.querySelectorAll(
   ".other-items" + ".percent"
@@ -12,10 +13,15 @@ const inputRange = document.querySelector(
 const spanRange = document.querySelector(
   ".rollback > .main-controls__range > span"
 );
-const totalInputs = document.getElementsByClassName("total-input");
+const totalInputTotal = document.getElementsByClassName("total-input")[0];
+const totalInputCount = document.getElementsByClassName("total-input")[1];
+const totalInputCountOther = document.getElementsByClassName("total-input")[2];
+const totalInputFullCount = document.getElementsByClassName("total-input")[3];
+const totalInputTotalCountRollback =
+  document.getElementsByClassName("total-input")[4];
 let screens = document.querySelectorAll(
   ".screen > .main-controls__select > select > option"
-);
+)[4];
 
 const appData = {
   title: "",
@@ -131,12 +137,17 @@ const appData = {
 
 appData.start();
 
-console.log(h1[0]);
-console.log(handlerBtn[0]);
-console.log(handlerBtn[1]);
+console.log(h1);
+console.log(handlerBtnStart);
+console.log(handlerBtnReset);
 console.log(screenBtn);
 console.log(inputRange);
 console.log(spanRange);
+console.log(totalInputTotal);
+console.log(totalInputCount);
+console.log(totalInputCountOther);
+console.log(totalInputFullCount);
+console.log(totalInputTotalCountRollback);
 
 for (let i = 0; i < otherItemsPercent.length; i++) {
   console.log(otherItemsPercent[i]);
@@ -144,10 +155,6 @@ for (let i = 0; i < otherItemsPercent.length; i++) {
 
 for (let i = 0; i < otherItemsNumber.length; i++) {
   console.log(otherItemsNumber[i]);
-}
-
-for (let i = 0; i < totalInputs.length; i++) {
-  console.log(totalInputs[i]);
 }
 
 for (let i = 0; i < screens.length; i++) {
