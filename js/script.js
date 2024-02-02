@@ -1,5 +1,5 @@
 "use strict";
-const h1 = document.getElementsByTagName("h1")[0];
+const headerTitle = document.getElementsByTagName("h1")[0];
 const handlerBtnStart = document.getElementsByClassName("handler_btn")[0];
 const handlerBtnReset = document.getElementsByClassName("handler_btn")[1];
 const screenBtn = document.querySelector(".screen-btn");
@@ -137,7 +137,7 @@ const appData = {
 
 appData.start();
 
-console.log(h1);
+console.log(headerTitle);
 console.log(handlerBtnStart);
 console.log(handlerBtnReset);
 console.log(screenBtn);
