@@ -28,13 +28,13 @@ const appData = {
   servicePricesNumber: 0,
   rollback: 0,
   screenCount: 0,
-  invalid: false,
 
   init: function () {
     appData.addTitle();
 
     inputRange.addEventListener("input", appData.getRollBack);
-    handlerBtnStart.addEventListener("click", appData.start);
+    handlerBtnStart.addEventListener("click", appData.checkFields);
+
     screenBtnPlus.addEventListener("click", appData.addScreenBlock);
   },
   addTitle: function () {
@@ -42,32 +42,31 @@ const appData = {
   },
 
   checkFields: function () {
-    appData.invalid = false;
-    screens.forEach((screen) => {
-      const select = screen.querySelector("select");
-      const input = screen.querySelector("input");
-      const selectName = select.options[select.selectedIndex].textContent;
+    appData.addScreens();
+    let countScreen = 0;
+
+    for (let i = 0; i < appData.screens.length; i++) {
       if (
-        selectName === "Тип экранов" ||
-        select.value == 0 ||
-        input.value == 0
+        appData.screens[i].name === "Тип экранов" ||
+        appData.screens[i].count === 0 ||
+        appData.screens[i].price === 0
       ) {
-        appData.invalid = true;
+        countScreen = 0;
+      } else {
+        countScreen++;
       }
-    });
+      if (countScreen === appData.screens.length) {
+        appData.start();
+      }
+    }
   },
 
   start: function () {
-    appData.checkFields();
+    appData.addServices();
+    appData.addPrice();
 
-    if (!appData.invalid) {
-      appData.addScreens();
-      appData.addServices();
-      appData.addPrice();
-
-      // appData.logger();
-      appData.showResult();
-    }
+    // appData.logger();
+    appData.showResult();
   },
 
   showResult: function () {
@@ -86,6 +85,7 @@ const appData = {
       const select = screen.querySelector("select");
       const input = screen.querySelector("input");
       const selectName = select.options[select.selectedIndex].textContent;
+
       appData.screens.push({
         id: index,
         name: selectName,
