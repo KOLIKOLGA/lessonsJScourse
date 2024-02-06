@@ -28,45 +28,41 @@ const appData = {
   servicePricesNumber: 0,
   rollback: 0,
   screenCount: 0,
+  invalid: true,
 
   init: function () {
     appData.addTitle();
 
+    handlerBtnStart.addEventListener("click", appData.start);
     inputRange.addEventListener("input", appData.getRollBack);
-    handlerBtnStart.addEventListener("click", appData.checkFields);
-
     screenBtnPlus.addEventListener("click", appData.addScreenBlock);
   },
   addTitle: function () {
     document.title = headerTitle.textContent;
   },
 
-  checkFields: function () {
-    appData.addScreens();
-    let countScreen = 0;
+  start: function () {
+    appData.checkFields();
 
-    for (let i = 0; i < appData.screens.length; i++) {
-      if (
-        appData.screens[i].name === "Тип экранов" ||
-        appData.screens[i].count === 0 ||
-        appData.screens[i].price === 0
-      ) {
-        countScreen = 0;
-      } else {
-        countScreen++;
-      }
-      if (countScreen === appData.screens.length) {
-        appData.start();
-      }
+    if (!appData.invalid) {
+      appData.addScreens();
+      appData.addServices();
+      appData.addPrice();
+      appData.showResult();
     }
   },
 
-  start: function () {
-    appData.addServices();
-    appData.addPrice();
+  checkFields: function () {
+    screens = document.querySelectorAll(".screen"); // важно обновлять список проверяемых элементов
+    appData.invalid = false;
+    screens.forEach((screen) => {
+      const select = screen.querySelector("select");
+      const input = screen.querySelector("input");
 
-    // appData.logger();
-    appData.showResult();
+      if (select.value.trim() === "" || input.value.trim() === "") {
+        appData.invalid = true;
+      }
+    });
   },
 
   showResult: function () {
@@ -164,27 +160,3 @@ const appData = {
 };
 
 appData.init();
-
-// console.log(headerTitle);
-// console.log(handlerBtnStart);
-// console.log(handlerBtnReset);
-// console.log(screenBtn);
-// console.log(inputRange);
-// console.log(spanRange);
-// console.log(totalInputTotal);
-//console.log(totalInputCount.value);
-// console.log(totalInputCountOther);
-// console.log(totalInputFullCount);
-// console.log(totalInputTotalCountRollback);
-
-// for (let i = 0; i < otherItemsPercent.length; i++) {
-//   console.log(otherItemsPercent[i]);
-// }
-
-// for (let i = 0; i < otherItemsNumber.length; i++) {
-//   console.log(otherItemsNumber[i]);
-// }
-
-// for (let i = 0; i < screens.length; i++) {
-//   console.log(screens[i]);
-// }
