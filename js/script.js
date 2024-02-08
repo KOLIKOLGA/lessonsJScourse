@@ -28,7 +28,7 @@ const appData = {
   servicePricesNumber: 0,
   rollback: 0,
   screenCount: 0,
-  invalid: true,
+  invalid: false,
 
   init: function () {
     appData.addTitle();
