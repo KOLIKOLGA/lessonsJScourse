@@ -18,6 +18,9 @@ const cms = document.querySelector(".cms");
 const checkBoxCms = cms.querySelector("#cms-open");
 const hiddenCmsVariants = cms.querySelector(".hidden-cms-variants");
 const mainControlsInput = cms.querySelector(".main-controls__input");
+const inputMainControlsInput = cms.querySelector(
+  ".main-controls__input input[type=text]"
+);
 const selectCms = hiddenCmsVariants.querySelector("select");
 
 let screens = document.querySelectorAll(".screen");
@@ -186,7 +189,8 @@ const appData = {
       check.disabled = "true";
     });
     checkBoxCms.disabled = "true";
-    hiddenCmsVariants.disabled = "true";
+    selectCms.disabled = "true";
+    inputMainControlsInput.disabled = "true";
   },
   addCms: function () {
     if (checkBoxCms.checked) {
