@@ -13,6 +13,13 @@ const totalInputCountOther = document.getElementsByClassName("total-input")[2];
 const totalInputFullCount = document.getElementsByClassName("total-input")[3];
 const totalInputTotalCountRollback =
   document.getElementsByClassName("total-input")[4];
+
+const cms = document.querySelector(".cms");
+const checkBoxCms = cms.querySelector("#cms-open");
+const hiddenCmsVariants = cms.querySelector(".hidden-cms-variants");
+const mainControlsInput = cms.querySelector(".main-controls__input");
+const selectCms = hiddenCmsVariants.querySelector("select");
+
 let screens = document.querySelectorAll(".screen");
 
 const appData = {
@@ -38,6 +45,8 @@ const appData = {
     handlerBtnStart.addEventListener("click", appData.addDisabledCheckBox);
     inputRange.addEventListener("input", appData.getRollBack);
     screenBtnPlus.addEventListener("click", appData.addScreenBlock);
+    checkBoxCms.addEventListener("change", this.addCms);
+    selectCms.addEventListener("change", this.mainControlsInputDisplay);
   },
   addTitle: function () {
     document.title = headerTitle.textContent;
@@ -51,7 +60,7 @@ const appData = {
       appData.addServices();
       appData.addPrice();
       appData.showResult();
-      // appData.getDisabled();
+
       //appData.logger();
     }
   },
@@ -176,6 +185,25 @@ const appData = {
       const check = item.querySelector("input[type=checkbox]");
       check.disabled = "true";
     });
+    checkBoxCms.disabled = "true";
+    hiddenCmsVariants.disabled = "true";
+  },
+  addCms: function () {
+    if (checkBoxCms.checked) {
+      hiddenCmsVariants.style.display = "flex";
+    } else {
+      hiddenCmsVariants.style.display = "none";
+      mainControlsInput.style.display = "none";
+      selectCms.value = "";
+    }
+  },
+  mainControlsInputDisplay: function () {
+    if (selectCms.selectedIndex !== 2) {
+      mainControlsInput.style.display = "none";
+    }
+    if (selectCms.selectedIndex === 2) {
+      mainControlsInput.style.display = "flex";
+    }
   },
   logger: function () {
     console.log(this.fullPrice);
