@@ -13,6 +13,9 @@ const totalInputCountOther = document.getElementsByClassName("total-input")[2];
 const totalInputFullCount = document.getElementsByClassName("total-input")[3];
 const totalInputTotalCountRollback =
   document.getElementsByClassName("total-input")[4];
+const checkBox = document.querySelectorAll(
+  ".main-controls__checkbox input[type=checkbox]"
+);
 
 const cms = document.querySelector(".cms");
 const checkBoxCms = cms.querySelector("#cms-open");
@@ -47,14 +50,13 @@ const appData = {
     appData.addTitle();
 
     handlerBtnStart.addEventListener("click", appData.start);
-    handlerBtnStart.addEventListener("click", appData.addDisabledScreens);
-    handlerBtnStart.addEventListener("click", appData.addDisabledCheckBox);
+
     inputRange.addEventListener("input", appData.getRollBack);
     screenBtnPlus.addEventListener("click", appData.addScreenBlock);
     checkBoxCms.addEventListener("change", this.addCms);
     selectCms.addEventListener("change", this.mainControlsInputDisplay);
     mainControlsInput.addEventListener("change", this.addPricePercent);
-    handlerBtnStart.addEventListener("click", this.addPricePercent);
+    handlerBtnReset.addEventListener("click", appData.reset);
   },
   addTitle: function () {
     document.title = headerTitle.textContent;
@@ -68,6 +70,10 @@ const appData = {
       appData.addServices();
       appData.addPrice();
       appData.showResult();
+      appData.handlerBtnStartClick();
+
+      appData.addDisabledScreens();
+      appData.addDisabledCheckBox();
 
       //appData.logger();
     }
@@ -87,6 +93,8 @@ const appData = {
         appData.invalid = true;
       }
     });
+  },
+  handlerBtnStartClick: function () {
     handlerBtnStart.style.display = "none";
     handlerBtnReset.style.display = "flex";
   },
@@ -175,6 +183,7 @@ const appData = {
     checkBoxCms.disabled = "true";
     selectCms.disabled = "true";
     inputMainControlsInput.disabled = "true";
+    inputRange.disabled = "true";
   },
   addCms: function () {
     if (checkBoxCms.checked) {
@@ -234,6 +243,62 @@ const appData = {
     this.servicePercentPrice = Math.ceil(
       this.fullPrice - this.fullPrice * (this.rollback / 100)
     );
+  },
+  reset: function () {
+    appData.handlerBtnResetClick();
+    appData.resetCms();
+    appData.checkBoxDisabledFalse();
+    appData.deleteDisabledScreens();
+    appData.deleteResult();
+    appData.resetRollBack();
+  },
+  handlerBtnResetClick: function () {
+    console.log("click");
+
+    handlerBtnStart.style.display = "flex";
+    handlerBtnReset.style.display = "none";
+  },
+  resetCms: function () {
+    if (checkBoxCms.checked) {
+      hiddenCmsVariants.style.display = "none";
+      mainControlsInput.style.display = "none";
+      selectCms.value = "";
+    }
+  },
+  checkBoxDisabledFalse: function () {
+    checkBox.forEach((e) => {
+      e.disabled = "";
+      e.checked = "";
+    });
+  },
+  deleteDisabledScreens: function () {
+    screens = document.querySelectorAll(".screen");
+
+    screens.forEach((screen, index) => {
+      const select = screen.querySelector("select");
+      const input = screen.querySelector("input");
+
+      input.disabled = "";
+      select.disabled = "";
+      if (index !== 0) {
+        screen.remove();
+      }
+      select.value = "";
+      input.value = "";
+    });
+    screenBtnPlus.style.display = "flex";
+  },
+  deleteResult: function () {
+    totalInputTotal.value = 0;
+    totalInputCountOther.value = 0;
+    totalInputFullCount.value = 0;
+    totalInputTotalCountRollback.value = 0;
+    totalInputCount.value = 0;
+  },
+  resetRollBack: function () {
+    inputRange.value = 0;
+    spanRange.textContent = inputRange.value;
+    appData.rollback = spanRange.textContent;
   },
   logger: function () {
     console.log(this.fullPrice);
