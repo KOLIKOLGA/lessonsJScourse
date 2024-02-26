@@ -38,6 +38,9 @@ const appData = {
   servicePricesNumber: 0,
   rollback: 0,
   screenCount: 0,
+  cmsPrice: 0,
+  percentValue: 0,
+  wordPressValue: 0,
   invalid: false,
 
   init: function () {
@@ -50,6 +53,8 @@ const appData = {
     screenBtnPlus.addEventListener("click", appData.addScreenBlock);
     checkBoxCms.addEventListener("change", this.addCms);
     selectCms.addEventListener("change", this.mainControlsInputDisplay);
+    mainControlsInput.addEventListener("change", this.addPricePercent);
+    handlerBtnStart.addEventListener("click", this.addPricePercent);
   },
   addTitle: function () {
     document.title = headerTitle.textContent;
@@ -66,6 +71,9 @@ const appData = {
 
       //appData.logger();
     }
+  },
+  isNumber: function (num) {
+    return !isNaN(parseFloat(num) && isFinite(num));
   },
 
   checkFields: function () {
@@ -135,33 +143,9 @@ const appData = {
 
   addScreenBlock: function () {
     const cloneScreen = screens[0].cloneNode(true);
-
     screens[screens.length - 1].after(cloneScreen);
   },
 
-  addPrice: function () {
-    this.screenPrice = this.screens.reduce((sum, item) => {
-      return sum + item.price;
-    }, 0);
-
-    for (let key in this.servicesNumber) {
-      this.servicePricesNumber += this.servicesNumber[key];
-    }
-
-    for (let key in this.servicesPercent) {
-      this.servicePricesPercent +=
-        this.screenPrice * (this.servicesPercent[key] / 100);
-    }
-    this.fullPrice =
-      this.screenPrice + this.servicePricesNumber + this.servicePricesPercent;
-
-    this.servicePercentPrice = Math.ceil(
-      this.fullPrice - this.fullPrice * (this.rollback / 100)
-    );
-    this.screenCount = this.screens.reduce((sum, item) => {
-      return sum + item.count;
-    }, 0);
-  },
   getRollBack: function () {
     spanRange.textContent = inputRange.value;
     appData.rollback = spanRange.textContent;
@@ -169,7 +153,7 @@ const appData = {
 
   addDisabledScreens: function () {
     screens = document.querySelectorAll(".screen");
-    console.log(screens);
+
     screens.forEach((screen) => {
       const select = screen.querySelector("select");
       const input = screen.querySelector("input");
@@ -208,6 +192,48 @@ const appData = {
     if (selectCms.selectedIndex === 2) {
       mainControlsInput.style.display = "flex";
     }
+    if (selectCms.selectedIndex === 1) {
+      appData.wordPressValue = selectCms.options[1].value;
+    }
+  },
+  addPricePercent: function () {
+    if (appData.isNumber(inputMainControlsInput.value)) {
+      appData.percentValue = inputMainControlsInput.value;
+    }
+  },
+  addPrice: function () {
+    this.screenPrice = this.screens.reduce((sum, item) => {
+      return sum + item.price;
+    }, 0);
+
+    for (let key in this.servicesNumber) {
+      this.servicePricesNumber += this.servicesNumber[key];
+    }
+
+    for (let key in this.servicesPercent) {
+      this.servicePricesPercent +=
+        this.screenPrice * (this.servicesPercent[key] / 100);
+    }
+    this.fullPrice =
+      this.screenPrice +
+      this.servicePricesNumber +
+      this.servicePricesPercent +
+      (this.screenPrice +
+        this.servicePricesNumber +
+        this.servicePricesPercent) *
+        (appData.percentValue / 100) +
+      (this.screenPrice +
+        this.servicePricesNumber +
+        this.servicePricesPercent) *
+        (+appData.wordPressValue / 100);
+
+    this.screenCount = this.screens.reduce((sum, item) => {
+      return sum + item.count;
+    }, 0);
+
+    this.servicePercentPrice = Math.ceil(
+      this.fullPrice - this.fullPrice * (this.rollback / 100)
+    );
   },
   logger: function () {
     console.log(this.fullPrice);
