@@ -253,8 +253,6 @@ const appData = {
     appData.resetRollBack();
   },
   handlerBtnResetClick: function () {
-    console.log("click");
-
     handlerBtnStart.style.display = "flex";
     handlerBtnReset.style.display = "none";
   },
