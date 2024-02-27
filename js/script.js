@@ -41,22 +41,21 @@ const appData = {
   servicePricesNumber: 0,
   rollback: 0,
   screenCount: 0,
-  cmsPrice: 0,
   percentValue: 0,
   wordPressValue: 0,
   invalid: false,
 
   init: function () {
-    appData.addTitle();
+    this.addTitle();
 
-    handlerBtnStart.addEventListener("click", appData.start);
+    handlerBtnStart.addEventListener("click", this.start);
 
-    inputRange.addEventListener("input", appData.getRollBack);
-    screenBtnPlus.addEventListener("click", appData.addScreenBlock);
+    inputRange.addEventListener("input", this.getRollBack);
+    screenBtnPlus.addEventListener("click", this.addScreenBlock);
     checkBoxCms.addEventListener("change", this.addCms);
     selectCms.addEventListener("change", this.mainControlsInputDisplay);
     mainControlsInput.addEventListener("change", this.addPricePercent);
-    handlerBtnReset.addEventListener("click", appData.reset);
+    handlerBtnReset.addEventListener("click", this.reset);
   },
   addTitle: function () {
     document.title = headerTitle.textContent;
@@ -155,8 +154,8 @@ const appData = {
   },
 
   getRollBack: function () {
-    spanRange.textContent = inputRange.value;
-    appData.rollback = spanRange.textContent;
+    spanRange.textContent = inputRange.value + " %";
+    appData.rollback = inputRange.value;
   },
 
   addDisabledScreens: function () {
@@ -206,8 +205,11 @@ const appData = {
     }
   },
   addPricePercent: function () {
-    if (appData.isNumber(inputMainControlsInput.value)) {
-      appData.percentValue = inputMainControlsInput.value;
+    if (selectCms.selectedIndex === 2) {
+      if (appData.isNumber(inputMainControlsInput.value)) {
+        appData.wordPressValue = 0;
+        appData.percentValue = inputMainControlsInput.value;
+      }
     }
   },
   addPrice: function () {
@@ -251,6 +253,7 @@ const appData = {
     appData.deleteDisabledScreens();
     appData.deleteResult();
     appData.resetRollBack();
+    appData.resetTotal();
   },
   handlerBtnResetClick: function () {
     handlerBtnStart.style.display = "flex";
@@ -261,6 +264,9 @@ const appData = {
       hiddenCmsVariants.style.display = "none";
       mainControlsInput.style.display = "none";
       selectCms.value = "";
+      selectCms.disabled = "";
+      inputMainControlsInput.value = "";
+      inputMainControlsInput.disabled = "";
     }
   },
   checkBoxDisabledFalse: function () {
@@ -285,6 +291,7 @@ const appData = {
       input.value = "";
     });
     screenBtnPlus.style.display = "flex";
+    screens = document.querySelectorAll(".screen");
   },
   deleteResult: function () {
     totalInputTotal.value = 0;
@@ -295,8 +302,23 @@ const appData = {
   },
   resetRollBack: function () {
     inputRange.value = 0;
-    spanRange.textContent = inputRange.value;
-    appData.rollback = spanRange.textContent;
+    spanRange.textContent = inputRange.value + " %";
+    appData.rollback = inputRange.value;
+    inputRange.disabled = "";
+  },
+  resetTotal: function () {
+    this.screens = [];
+    this.screenPrice = 0;
+    this.servicesPercent = {};
+    this.servicesNumber = {};
+    this.fullPrice = 0;
+    this.servicePercentPrice = 0;
+    this.servicePricesPercent = 0;
+    this.servicePricesNumber = 0;
+    this.rollback = 0;
+    this.screenCount = 0;
+    this.percentValue = 0;
+    this.wordPressValue = 0;
   },
   logger: function () {
     console.log(this.fullPrice);
