@@ -191,11 +191,15 @@ const appData = {
       hiddenCmsVariants.style.display = "none";
       mainControlsInput.style.display = "none";
       selectCms.value = "";
+      appData.wordPressValue = 0;
+      appData.percentValue = 0;
     }
   },
   mainControlsInputDisplay: function () {
     if (selectCms.selectedIndex !== 2) {
       mainControlsInput.style.display = "none";
+      appData.wordPressValue = 0;
+      appData.percentValue = 0;
     }
     if (selectCms.selectedIndex === 2) {
       mainControlsInput.style.display = "flex";
@@ -260,14 +264,14 @@ const appData = {
     handlerBtnReset.style.display = "none";
   },
   resetCms: function () {
-    if (checkBoxCms.checked) {
-      hiddenCmsVariants.style.display = "none";
-      mainControlsInput.style.display = "none";
-      selectCms.value = "";
-      selectCms.disabled = "";
-      inputMainControlsInput.value = "";
-      inputMainControlsInput.disabled = "";
-    }
+    //if (checkBoxCms.checked) {
+    hiddenCmsVariants.style.display = "none";
+    mainControlsInput.style.display = "none";
+    selectCms.value = "";
+    selectCms.disabled = "";
+    inputMainControlsInput.value = "";
+    inputMainControlsInput.disabled = "";
+    //}
   },
   checkBoxDisabledFalse: function () {
     checkBox.forEach((e) => {
