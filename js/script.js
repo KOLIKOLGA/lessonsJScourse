@@ -255,7 +255,7 @@ const appData = {
     appData.resetCms();
     appData.checkBoxDisabledFalse();
     appData.deleteDisabledScreens();
-    appData.deleteResult();
+    appData.resetShowResult();
     appData.resetRollBack();
     appData.resetTotal();
   },
@@ -264,14 +264,12 @@ const appData = {
     handlerBtnReset.style.display = "none";
   },
   resetCms: function () {
-    //if (checkBoxCms.checked) {
     hiddenCmsVariants.style.display = "none";
     mainControlsInput.style.display = "none";
     selectCms.value = "";
     selectCms.disabled = "";
     inputMainControlsInput.value = "";
     inputMainControlsInput.disabled = "";
-    //}
   },
   checkBoxDisabledFalse: function () {
     checkBox.forEach((e) => {
@@ -297,7 +295,7 @@ const appData = {
     screenBtnPlus.style.display = "flex";
     screens = document.querySelectorAll(".screen");
   },
-  deleteResult: function () {
+  resetShowResult: function () {
     totalInputTotal.value = 0;
     totalInputCountOther.value = 0;
     totalInputFullCount.value = 0;
