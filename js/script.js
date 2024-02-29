@@ -48,33 +48,39 @@ const appData = {
   init: function () {
     this.addTitle();
 
-    handlerBtnStart.addEventListener("click", this.start);
+    handlerBtnStart.addEventListener("click", this.start.bind(this));
 
-    inputRange.addEventListener("input", this.getRollBack);
-    screenBtnPlus.addEventListener("click", this.addScreenBlock);
-    checkBoxCms.addEventListener("change", this.addCms);
-    selectCms.addEventListener("change", this.mainControlsInputDisplay);
-    mainControlsInput.addEventListener("change", this.addPricePercent);
-    handlerBtnReset.addEventListener("click", this.reset);
+    inputRange.addEventListener("input", this.getRollBack.bind(this));
+    screenBtnPlus.addEventListener("click", this.addScreenBlock.bind(this));
+    checkBoxCms.addEventListener("change", this.addCms.bind(this));
+    selectCms.addEventListener(
+      "change",
+      this.mainControlsInputDisplay.bind(this)
+    );
+    mainControlsInput.addEventListener(
+      "change",
+      this.addPricePercent.bind(this)
+    );
+    handlerBtnReset.addEventListener("click", this.reset.bind(this));
   },
   addTitle: function () {
     document.title = headerTitle.textContent;
   },
 
   start: function () {
-    appData.checkFields();
+    this.checkFields();
 
-    if (!appData.invalid) {
-      appData.addScreens();
-      appData.addServices();
-      appData.addPrice();
-      appData.showResult();
-      appData.handlerBtnStartClick();
+    if (!this.invalid) {
+      this.addScreens();
+      this.addServices();
+      this.addPrice();
+      this.showResult();
+      this.handlerBtnStartClick();
 
-      appData.addDisabledScreens();
-      appData.addDisabledCheckBox();
+      this.addDisabledScreens();
+      this.addDisabledCheckBox();
 
-      //appData.logger();
+      //this.logger();
     }
   },
   isNumber: function (num) {
@@ -83,16 +89,17 @@ const appData = {
 
   checkFields: function () {
     screens = document.querySelectorAll(".screen"); // важно обновлять список проверяемых элементов
-    appData.invalid = false;
+    this.invalid = false;
     screens.forEach((screen) => {
       const select = screen.querySelector("select");
       const input = screen.querySelector("input");
 
       if (select.value.trim() === "" || input.value.trim() === "") {
-        appData.invalid = true;
+        this.invalid = true;
       }
     });
   },
+
   handlerBtnStartClick: function () {
     handlerBtnStart.style.display = "none";
     handlerBtnReset.style.display = "flex";
@@ -115,7 +122,7 @@ const appData = {
       const input = screen.querySelector("input");
       const selectName = select.options[select.selectedIndex].textContent;
 
-      appData.screens.push({
+      this.screens.push({
         id: index,
         name: selectName,
         price: +select.value * +input.value,
@@ -123,7 +130,7 @@ const appData = {
       });
     });
 
-    console.log(appData.screens);
+    console.log(this.screens);
   },
 
   addServices: function () {
@@ -133,7 +140,7 @@ const appData = {
       const input = item.querySelector("input[type=text]");
 
       if (check.checked) {
-        appData.servicesPercent[label.textContent] = +input.value;
+        this.servicesPercent[label.textContent] = +input.value;
       }
     });
 
@@ -143,7 +150,7 @@ const appData = {
       const input = item.querySelector("input[type=text]");
 
       if (check.checked) {
-        appData.servicesNumber[label.textContent] = +input.value;
+        this.servicesNumber[label.textContent] = +input.value;
       }
     });
   },
@@ -155,7 +162,7 @@ const appData = {
 
   getRollBack: function () {
     spanRange.textContent = inputRange.value + " %";
-    appData.rollback = inputRange.value;
+    this.rollback = inputRange.value;
   },
 
   addDisabledScreens: function () {
@@ -191,28 +198,28 @@ const appData = {
       hiddenCmsVariants.style.display = "none";
       mainControlsInput.style.display = "none";
       selectCms.value = "";
-      appData.wordPressValue = 0;
-      appData.percentValue = 0;
+      this.wordPressValue = 0;
+      this.percentValue = 0;
     }
   },
   mainControlsInputDisplay: function () {
     if (selectCms.selectedIndex !== 2) {
       mainControlsInput.style.display = "none";
-      appData.wordPressValue = 0;
-      appData.percentValue = 0;
+      this.wordPressValue = 0;
+      this.percentValue = 0;
     }
     if (selectCms.selectedIndex === 2) {
       mainControlsInput.style.display = "flex";
     }
     if (selectCms.selectedIndex === 1) {
-      appData.wordPressValue = selectCms.options[1].value;
+      this.wordPressValue = selectCms.options[1].value;
     }
   },
   addPricePercent: function () {
     if (selectCms.selectedIndex === 2) {
-      if (appData.isNumber(inputMainControlsInput.value)) {
-        appData.wordPressValue = 0;
-        appData.percentValue = inputMainControlsInput.value;
+      if (this.isNumber(inputMainControlsInput.value)) {
+        this.wordPressValue = 0;
+        this.percentValue = inputMainControlsInput.value;
       }
     }
   },
@@ -236,11 +243,11 @@ const appData = {
       (this.screenPrice +
         this.servicePricesNumber +
         this.servicePricesPercent) *
-        (appData.percentValue / 100) +
+        (this.percentValue / 100) +
       (this.screenPrice +
         this.servicePricesNumber +
         this.servicePricesPercent) *
-        (+appData.wordPressValue / 100);
+        (+this.wordPressValue / 100);
 
     this.screenCount = this.screens.reduce((sum, item) => {
       return sum + item.count;
@@ -251,13 +258,13 @@ const appData = {
     );
   },
   reset: function () {
-    appData.handlerBtnResetClick();
-    appData.resetCms();
-    appData.checkBoxDisabledFalse();
-    appData.deleteDisabledScreens();
-    appData.resetShowResult();
-    appData.resetRollBack();
-    appData.resetTotal();
+    this.handlerBtnResetClick();
+    this.resetCms();
+    this.checkBoxDisabledFalse();
+    this.deleteDisabledScreens();
+    this.resetShowResult();
+    this.resetRollBack();
+    this.resetTotal();
   },
   handlerBtnResetClick: function () {
     handlerBtnStart.style.display = "flex";
@@ -305,7 +312,7 @@ const appData = {
   resetRollBack: function () {
     inputRange.value = 0;
     spanRange.textContent = inputRange.value + " %";
-    appData.rollback = inputRange.value;
+    this.rollback = inputRange.value;
     inputRange.disabled = "";
   },
   resetTotal: function () {
